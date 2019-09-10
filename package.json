@@ -13,10 +13,10 @@
 	},
 	"scripts": {
 		"start": "node src/index.js",
-		"server": "env-cmd -f ./config/dev.env nodemon src/index.js",
+		"server": "env-cmd -f ./config/dev.env nodemon src/server.js",
 		"client": "npm run start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
-	"author": "",
+	"author": "Ashfaq Shimer Ahamed",
 	"license": "ISC"
 }
