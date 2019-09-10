@@ -12,7 +12,7 @@
 		"nodemon": "^1.19.2"
 	},
 	"scripts": {
-		"start": "node src/index.js",
+		"start": "node src/server.js",
 		"server": "env-cmd -f ./config/dev.env nodemon src/server.js",
 		"client": "npm run start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
