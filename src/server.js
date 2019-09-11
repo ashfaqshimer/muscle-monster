@@ -15,9 +15,6 @@ if (process.env.ENVIRONMENT === 'prod') {
 }
 
 // Routes
-app.get('/', (req, res) => {
-	res.send('This works');
-});
 
 // Server configuration
 const PORT = process.env.PORT;
