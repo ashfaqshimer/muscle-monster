@@ -7,8 +7,9 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 
 import './Navigation.scss';
+import { auth } from '../../utils/firebase';
 
-const Navigation = () => {
+const Navigation = ({ currentUser }) => {
 	return (
 		<Navbar className='Navigation' bg='light' expand='md'>
 			<Link to='/'>
@@ -31,6 +32,18 @@ const Navigation = () => {
 					<Link className='option nav-link' to='/shop'>
 						CONTACT
 					</Link>
+					{currentUser ? (
+						<div
+							className='option nav-link'
+							onClick={() => auth.signOut()}
+						>
+							SIGN OUT
+						</div>
+					) : (
+						<Link className='option nav-link' to='/signin'>
+							SIGN IN
+						</Link>
+					)}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
