@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
@@ -50,4 +52,8 @@ const Navigation = ({ currentUser }) => {
 	);
 };
 
-export default Navigation;
+const mapStateToProps = (state) => ({
+	currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Navigation);
