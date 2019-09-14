@@ -10,8 +10,10 @@ import Nav from 'react-bootstrap/Nav';
 
 import './Navigation.scss';
 import { auth } from '../../utils/firebase';
+import CartIcon from '../CartIcon/CartIcon';
+import CartDropdown from '../CartDropdown/CartDropdown';
 
-const Navigation = ({ currentUser }) => {
+const Navigation = ({ currentUser, showCart }) => {
 	return (
 		<Navbar className='Navigation' bg='light' expand='md'>
 			<Link to='/'>
@@ -46,14 +48,17 @@ const Navigation = ({ currentUser }) => {
 							SIGN IN
 						</Link>
 					)}
+					<CartIcon />
 				</Nav>
+				{showCart && <CartDropdown />}
 			</Navbar.Collapse>
 		</Navbar>
 	);
 };
 
-const mapStateToProps = (state) => ({
-	currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { showCart } }) => ({
+	currentUser,
+	showCart
 });
 
 export default connect(mapStateToProps)(Navigation);
