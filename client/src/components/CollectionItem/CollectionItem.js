@@ -6,7 +6,7 @@ import CustomButton from '../CustomButton/CustomButton';
 import { addItem } from '../../reducers/cart/cartActions';
 
 const CollectionItem = ({ item, addItem }) => {
-	const { id, name, price, imageUrl } = item;
+	const { name, price, imageUrl } = item;
 	return (
 		<div className='CollectionItem'>
 			<div
