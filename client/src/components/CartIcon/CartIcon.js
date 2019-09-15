@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggleCart } from '../../reducers/cart/cartActions';
-import {
-	selectCartItemsCount,
-	selectCartItems
-} from '../../reducers/cart/cartSelectors';
+import { selectCartItemsCount } from '../../reducers/cart/cartSelectors';
 import './CartIcon.scss';
 import { ReactComponent as ShoppingIcon } from '../../assets/11.3 shopping-bag.svg';
 

@@ -10,6 +10,7 @@ import AuthenticationPage from './pages/AuthenticationPage/AuthenticationPage';
 import './App.scss';
 import { auth, createUserProfileDocument } from './utils/firebase';
 import { setCurrentUser } from './reducers/user/userActions';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
 function App({ currentUser, setCurrentUser }) {
 	useEffect(() => {
@@ -51,6 +52,11 @@ function App({ currentUser, setCurrentUser }) {
 								<AuthenticationPage />
 							)
 						}
+					/>
+					<Route
+						exact
+						path='/checkout'
+						render={() => <CheckoutPage />}
 					/>
 				</Switch>
 			</Container>
