@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {
 	selectCartItems,
 	selectCartTotal
-} from '../../reducers/cart/cartSelectors';
+} from '../../redux/cart/cartSelectors';
 import './CheckoutPage.scss';
 import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
 

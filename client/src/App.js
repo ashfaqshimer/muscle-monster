@@ -9,7 +9,7 @@ import ShopPage from './pages/ShopPage/ShopPage';
 import AuthenticationPage from './pages/AuthenticationPage/AuthenticationPage';
 import './App.scss';
 import { auth, createUserProfileDocument } from './utils/firebase';
-import { setCurrentUser } from './reducers/user/userActions';
+import { setCurrentUser } from './redux/user/userActions';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
 function App({ currentUser, setCurrentUser }) {
@@ -41,7 +41,10 @@ function App({ currentUser, setCurrentUser }) {
 			<Container>
 				<Switch>
 					<Route exact path='/' render={() => <Homepage />} />
-					<Route exact path='/shop' render={() => <ShopPage />} />
+					<Route
+						path='/shop'
+						render={(routeProps) => <ShopPage {...routeProps} />}
+					/>
 					<Route
 						exact
 						path='/signin'

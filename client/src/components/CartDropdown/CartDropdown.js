@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import './CartDropdown.scss';
 import CustomButton from '../CustomButton/CustomButton';
 import CartItem from '../CartItem/CartItem';
-import { selectCartItems } from '../../reducers/cart/cartSelectors';
-import { toggleCart } from '../../reducers/cart/cartActions';
+import { selectCartItems } from '../../redux/cart/cartSelectors';
+import { toggleCart } from '../../redux/cart/cartActions';
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
 	const handleClick = (e) => {

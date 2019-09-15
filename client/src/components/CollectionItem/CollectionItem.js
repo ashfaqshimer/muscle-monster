@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './CollectionItem.scss';
 import CustomButton from '../CustomButton/CustomButton';
-import { addItem } from '../../reducers/cart/cartActions';
+import { addItem } from '../../redux/cart/cartActions';
 
 const CollectionItem = ({ item, addItem }) => {
 	const { name, price, imageUrl } = item;
