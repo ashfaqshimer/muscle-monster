@@ -1,14 +1,11 @@
 const dotenv = require('dotenv');
 
 // Local imports
-const connectDb = require('./config/db');
+
 const colors = require('colors');
 
 // Load env vars
-dotenv.config({ path: './config/config.env' });
-
-// Connect to database
-connectDb();
+// dotenv.config({ path: './config/config.env' });
 
 const app = require('./app');
 
