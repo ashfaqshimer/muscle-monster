@@ -1,5 +1,10 @@
 const express = require('express');
-const { getProducts, createProduct } = require('../controllers/products');
+const {
+	getProducts,
+	getProduct,
+	createProduct,
+	updateProduct
+} = require('../controllers/products');
 
 const Product = require('../models/Product');
 
@@ -12,5 +17,10 @@ router
 	.route('/')
 	.get(advancedResults(Product), getProducts)
 	.post(createProduct);
+
+router
+	.route('/:id')
+	.get(getProduct)
+	.put(updateProduct);
 
 module.exports = router;

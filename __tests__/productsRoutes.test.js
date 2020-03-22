@@ -110,3 +110,84 @@ describe('POST /products', () => {
 		expect(response.body.error).toBe('name is required');
 	});
 });
+
+describe('GET /products/:id', () => {
+	test('Should return product if correct ID in params', async () => {
+		const id = '5d713995b721c3bb38c1f5d0';
+		const product1 = {
+			_id: '5d713995b721c3bb38c1f5d0',
+			name: 'Product 1',
+			sku: '01',
+			description: 'This is product 1',
+			quantityAvailable: 0,
+			price: 10.2
+		};
+
+		const response = await request(app)
+			.get(`/api/v1/products/${id}`)
+			.expect(200);
+
+		expect(response.body.data).toMatchObject(product1);
+	});
+});
+
+describe('PUT /products/:id', () => {
+	test('should successfully update product 1 without changing the id of the product', async () => {
+		const updatedProduct = {
+			_id: '5d713a66ec8f2b88b8f830b9',
+			name: 'Updated Product',
+			sku: 'updatedsku',
+			description: 'This is an updated product',
+			quantityAvailable: 20,
+			price: 86.2555
+		};
+		const id = '5d713995b721c3bb38c1f5d0';
+		const updatedProductWithoutId = { ...updatedProduct };
+		delete updatedProductWithoutId._id;
+
+		const response = await request(app)
+			.put(`/api/v1/products/${id}`)
+			.send(updatedProduct)
+			.expect(201);
+		expect(response.body.data).toMatchObject(updatedProductWithoutId);
+	});
+	test('should throw an error if product id does not exist', async () => {
+		const updatedProduct = {
+			_id: '5d713a66ec8f2b88b8f830b9',
+			name: 'Updated Product',
+			sku: 'updatedsku',
+			description: 'This is an updated product',
+			quantityAvailable: 20,
+			price: 86.2555
+		};
+		const id = '5d713995b721c3bb38c1f5d8';
+		const updatedProductWithoutId = { ...updatedProduct };
+		delete updatedProductWithoutId._id;
+
+		const response = await request(app)
+			.put(`/api/v1/products/${id}`)
+			.send(updatedProduct)
+			.expect(404);
+		expect(response.body.error).toBe(`Product not found with id of ${id}`);
+	});
+	test('should throw an error if product details are invalid', async () => {
+		const updatedProduct = {
+			_id: '5d713a66ec8f2b88b8f830b9',
+			name: 'Updated Product',
+			sku: 'updatedsku',
+			quantityAvailable: 20,
+			price: 'this is not a number'
+		};
+		const id = '5d713995b721c3bb38c1f5d0';
+		const updatedProductWithoutId = { ...updatedProduct };
+		delete updatedProductWithoutId._id;
+
+		const response = await request(app)
+			.put(`/api/v1/products/${id}`)
+			.send(updatedProduct)
+			.expect(400);
+		expect(response.body.error).toBe(
+			`Cast to number failed for value "this is not a number" at path "price"`
+		);
+	});
+});
