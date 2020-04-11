@@ -1,15 +1,26 @@
 import Head from 'next/head';
 // import Header from '../components/Header/Header';
 
-const Home = () => (
-	<div className='container'>
-		<Head>
-			<title>Muscle Monster | Supplements Accessories Fitness</title>
-			<link rel='icon' href='/favicon.ico' />
-		</Head>
+import { connect } from 'react-redux';
+import { getCategories } from '../actions/category';
 
-		<div>Categories</div>
-	</div>
-);
+import { useEffect } from 'react';
 
-export default Home;
+const Home = ({ getCategories }) => {
+	useEffect(() => {
+		getCategories();
+	});
+
+	return (
+		<div className='container'>
+			<Head>
+				<title>Muscle Monster | Supplements Accessories Fitness</title>
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
+
+			<div>Categories</div>
+		</div>
+	);
+};
+
+export default connect(null, { getCategories })(Home);

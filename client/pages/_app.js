@@ -1,13 +1,17 @@
 import App from 'next/app';
 import Layout from '../components/_App/Layout';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 class MyApp extends App {
 	render() {
 		const { Component } = this.props;
 		return (
-			<Layout>
-				<Component />
-			</Layout>
+			<Provider store={store}>
+				<Layout>
+					<Component />
+				</Layout>
+			</Provider>
 		);
 	}
 }

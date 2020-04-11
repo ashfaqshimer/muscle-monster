@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 
+import './Header.scss';
+
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
@@ -19,7 +21,7 @@ const Header = ({ user }) => {
 	};
 
 	return (
-		<Menu stackable fluid id='menu'>
+		<Menu stackable fluid id='menu' className='Header'>
 			<Container>
 				<Link href='/'>
 					<Menu.Item header active={isActive('/')}>
