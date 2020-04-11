@@ -11,6 +11,7 @@ connectDb();
 
 // Route files
 const productsRoutes = require('./routes/products');
+const categoriesRoutes = require('./routes/categories');
 
 const errorHandler = require('./middleware/errorHandler');
 
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
 app.use('/api/v1/products', productsRoutes);
+app.use('/api/v1/categories', categoriesRoutes);
 
 // Error handler
 app.use(errorHandler);

@@ -8,7 +8,7 @@ dotenv.config({ path: './config/test.env' });
 
 // Load models
 const Product = require('./models/Product');
-// const Course = require('./models/Course');
+const Category = require('./models/Category');
 // const User = require('./models/User');
 // const Review = require('./models/Review');
 
@@ -17,22 +17,24 @@ mongoose.connect(process.env.MONGO_URI, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useFindAndModify: false,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
 });
 
 // Read JSON files
 const products = JSON.parse(
-	fs.readFileSync(`${__dirname}/_data/products.json`, 'utf-8')
+	fs.readFileSync(`${__dirname}/__data__/products.json`, 'utf-8')
 );
-// const courses = JSON.parse(fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8'));
+const categories = JSON.parse(
+	fs.readFileSync(`${__dirname}/__data__/categories.json`, 'utf-8')
+);
 // const users = JSON.parse(fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8'));
 // const reviews = JSON.parse(fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
 	try {
-		// await User.create(users);
-		await Product.create(products);
+		const promises = [Category.create(categories), Product.create(products)];
+		await Promise.all(promises);
 
 		if (process.env.NODE_ENV !== 'test') {
 			console.log('Data imported...'.green.inverse);
@@ -48,7 +50,10 @@ const importData = async () => {
 // Delete data
 const deleteData = async () => {
 	try {
-		await Product.deleteMany();
+		const promises = [Category.deleteMany(), Product.deleteMany()];
+		await Promise.all(promises);
+		// await Category.deleteMany();
+		// await Product.deleteMany();
 
 		if (process.env.NODE_ENV !== 'test') {
 			console.log('Data Destroyed...'.red.inverse);
