@@ -36,6 +36,10 @@ app.use(fileupload());
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/v1', (req, res) => {
+	res.send('Welcome to Muscle Monster API');
+});
+
 // Mount routers
 app.use('/api/v1/products', productsRoutes);
 app.use('/api/v1/categories', categoriesRoutes);
