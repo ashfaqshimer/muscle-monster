@@ -6,62 +6,49 @@ const { setupDatabase } = require('../seeder');
 
 beforeAll(setupDatabase);
 
-describe('GET /category', () => {
+describe('GET /categories', () => {
 	test('Should return categories', async () => {
 		const response = await request(app).get('/api/v1/categories').expect(200);
 		expect(response.body.count).toBe(9);
 		expect(response.body.total).toBe(9);
 	});
 });
-// describe('GET /products with query params', () => {
-// 	test('should return paginated products with next for page=1 and limit=2', async () => {
-// 		const response = await request(app)
-// 			.get('/api/v1/products?page=1&limit=2')
-// 			.expect(200);
-// 		expect(response.body.count).toBe(2);
-// 		expect(response.body.total).toBe(4);
-// 		expect(response.body.pagination).toMatchObject({
-// 			next: { limit: 2, page: 2 },
-// 		});
-// 		expect(response.body.pagination).not.toHaveProperty('prev');
-// 	});
-// 	test('should return paginated products with previous for page=2 and limit=2', async () => {
-// 		const response = await request(app)
-// 			.get('/api/v1/products?page=2&limit=2')
-// 			.expect(200);
-// 		expect(response.body.count).toBe(2);
-// 		expect(response.body.total).toBe(4);
-// 		expect(response.body.pagination).toMatchObject({
-// 			prev: { limit: 2, page: 1 },
-// 		});
-// 		expect(response.body.pagination).not.toHaveProperty('next');
-// 	});
-// 	test('should return paginated products with next and previous for page=2 and limit=1', async () => {
-// 		const response = await request(app)
-// 			.get('/api/v1/products?page=2&limit=1')
-// 			.expect(200);
-// 		expect(response.body.count).toBe(1);
-// 		expect(response.body.total).toBe(4);
-// 		expect(response.body.pagination).toMatchObject({
-// 			prev: { limit: 1, page: 1 },
-// 			next: { limit: 1, page: 3 },
-// 		});
-// 	});
-// 	test('should return two products when price is set to LTE 102.22', async () => {
-// 		const response = await request(app)
-// 			.get('/api/v1/products?price[lte]=102.22')
-// 			.expect(200);
-// 		expect(response.body.count).toBe(2);
-// 		expect(response.body.total).toBe(4);
-// 	});
-// 	test('should return one product when price is set to GT 1000', async () => {
-// 		const response = await request(app)
-// 			.get('/api/v1/products?price[gt]=1000')
-// 			.expect(200);
-// 		expect(response.body.count).toBe(1);
-// 		expect(response.body.total).toBe(4);
-// 	});
-// });
+
+describe('GET /categories with query params', () => {
+	test('should return paginated categories with next for page=1 and limit=2', async () => {
+		const response = await request(app)
+			.get('/api/v1/categories?page=1&limit=2')
+			.expect(200);
+		expect(response.body.count).toBe(2);
+		expect(response.body.total).toBe(9);
+		expect(response.body.pagination).toMatchObject({
+			next: { limit: 2, page: 2 },
+		});
+		expect(response.body.pagination).not.toHaveProperty('prev');
+	});
+	test('should return paginated categories with previous for page=4 and limit=2', async () => {
+		const response = await request(app)
+			.get('/api/v1/categories?page=5&limit=2')
+			.expect(200);
+		expect(response.body.count).toBe(1);
+		expect(response.body.total).toBe(9);
+		expect(response.body.pagination).toMatchObject({
+			prev: { limit: 2, page: 4 },
+		});
+		expect(response.body.pagination).not.toHaveProperty('next');
+	});
+	test('should return paginated categories with next and previous for page=2 and limit=1', async () => {
+		const response = await request(app)
+			.get('/api/v1/categories?page=2&limit=1')
+			.expect(200);
+		expect(response.body.count).toBe(1);
+		expect(response.body.total).toBe(9);
+		expect(response.body.pagination).toMatchObject({
+			prev: { limit: 1, page: 1 },
+			next: { limit: 1, page: 3 },
+		});
+	});
+});
 
 // describe('POST /products', () => {
 // 	test('should successfully save a valid product', async () => {
