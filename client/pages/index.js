@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { getCategories } from '../actions/category';
 import BASE_URL from '../utils/baseUrl';
 import CategoryList from '../components/Index/CategoryList/CategoryList';
+import Loader from '../components/Loader/Loader';
 
 const Home = ({ getCategories }) => {
 	useEffect(() => {
@@ -18,6 +19,8 @@ const Home = ({ getCategories }) => {
 				<title>Muscle Monster | Supplements Accessories Fitness</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+
+			{/* <Loader /> */}
 
 			{/* <CategoryList /> */}
 		</div>
