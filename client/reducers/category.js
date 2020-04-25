@@ -1,11 +1,29 @@
-import { GET_CATEGORIES } from '../actions/types';
+import { GET_CATEGORIES, GET_CATEGORIES_ERROR } from '../actions/types';
 
-const initialState = [];
+const initialState = {
+	categories: [],
+	loading: true,
+	error: {},
+	total: null,
+};
 
-export default function(state = initialState, action) {
-	switch (action.type) {
+export default function (state = initialState, action) {
+	const { type, payload } = action;
+	switch (type) {
 		case GET_CATEGORIES:
-			return [...state, action.payload];
+			return {
+				...state,
+				categories: payload.data,
+				total: payload.total,
+				loading: false,
+			};
+
+		case GET_CATEGORIES_ERROR:
+			return {
+				...state,
+				error: payload,
+				loading: false,
+			};
 
 		default:
 			return state;
