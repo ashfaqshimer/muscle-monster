@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const connectDb = require('./config/db');
 
@@ -27,6 +28,9 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
+
+// Enable CORS
+app.use(cors());
 
 // File uploading
 app.use(fileupload());
