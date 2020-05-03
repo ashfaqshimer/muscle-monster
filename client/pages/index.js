@@ -7,6 +7,7 @@ import { getCategories } from '../actions/category';
 import BASE_URL from '../utils/baseUrl';
 import CategoryList from '../components/Index/CategoryList/CategoryList';
 import Loader from '../components/Loader/Loader';
+import './index.scss';
 
 const Home = ({ getCategories }) => {
 	useEffect(() => {
@@ -14,13 +15,14 @@ const Home = ({ getCategories }) => {
 	});
 
 	return (
-		<div className='container'>
+		<div className='container index'>
 			<Head>
 				<title>Muscle Monster | Supplements Accessories Fitness</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-
-			{/* <Loader /> */}
+			<div className='list'>
+				<Loader />
+			</div>
 
 			{/* <CategoryList /> */}
 		</div>

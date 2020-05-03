@@ -1,6 +1,7 @@
 import App from 'next/app';
-import Layout from '../components/_App/Layout';
 import { Provider } from 'react-redux';
+
+import Layout from '../components/_App/Layout';
 import store from '../store';
 
 class MyApp extends App {

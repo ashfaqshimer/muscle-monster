@@ -3,5 +3,9 @@ import React from 'react';
 import './Loader.scss';
 
 export default function Loader() {
-	return <div className='loader'>Loading...</div>;
+	return (
+		<div className='loader-container'>
+			<div className='lds-hourglass'></div>
+		</div>
+	);
 }
