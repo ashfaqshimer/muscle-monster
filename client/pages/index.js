@@ -3,11 +3,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
-import { getCategories } from '../actions/category';
+import { getCategories } from '../redux/actions/category';
 import BASE_URL from '../utils/baseUrl';
 import CategoryList from '../components/Index/CategoryList/CategoryList';
 import Loader from '../components/Loader/Loader';
 import './index.scss';
+import Directory from '../components/Directory/Directory';
 
 const Home = ({ getCategories }) => {
 	useEffect(() => {
@@ -22,6 +23,7 @@ const Home = ({ getCategories }) => {
 			</Head>
 			<div className='list'>
 				<Loader />
+				<Directory />
 			</div>
 
 			{/* <CategoryList /> */}

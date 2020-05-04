@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import BASE_URL from '../utils/baseUrl';
+import BASE_URL from '../../utils/baseUrl';
 import { GET_CATEGORIES, GET_CATEGORIES_ERROR } from './types';
 
 // Gets the product categories
