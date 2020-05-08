@@ -10,7 +10,7 @@ import Loader from '../components/Loader/Loader';
 import './index.scss';
 import Directory from '../components/Directory/Directory';
 
-const Home = ({ getCategories }) => {
+const Home = ({ getCategories, isLoading }) => {
 	useEffect(() => {
 		getCategories();
 	});
@@ -21,21 +21,13 @@ const Home = ({ getCategories }) => {
 				<title>Muscle Monster | Supplements Accessories Fitness</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<div className='list'>
-				<Loader />
-				<Directory />
-			</div>
+			<div className='list'>{isLoading ? <Loader /> : <Directory />}</div>
 
 			{/* <CategoryList /> */}
 		</div>
 	);
 };
 
-// Home.getInitialProps = async (ctx) => {
-// 	const res = await axios.get(`${BASE_URL}/api/v1/categories`);
-// 	console.log(res);
-// 	console.log(BASE_URL);
-// 	return { categories: res.data };
-// };
+const mapStateToProps = (state) => ({ isLoading: state.category.loading });
 
-export default connect(null, { getCategories })(Home);
+export default connect(mapStateToProps, { getCategories })(Home);
