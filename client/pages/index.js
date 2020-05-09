@@ -1,31 +1,12 @@
-import Head from 'next/head';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
-
-import { getCategories } from '../redux/actions/category';
-import BASE_URL from '../utils/baseUrl';
-import CategoryList from '../components/Index/CategoryList/CategoryList';
-import Loader from '../components/Loader/Loader';
+import Directory from '../../components/Directory/Directory';
 import './index.scss';
-import Directory from '../components/Directory/Directory';
 
-const Home = ({ getCategories, isLoading }) => {
-	useEffect(() => {
-		getCategories();
-	});
-
+const Homepage = () => {
 	return (
-		<div className='container index'>
-			<Head>
-				<title>Muscle Monster | Supplements Accessories Fitness</title>
-				<link rel='icon' href='/favicon.ico' />
-			</Head>
-			<div className='list'>{isLoading ? <Loader /> : <Directory />}</div>
+		<div className='HomePage'>
+			<Directory />
 		</div>
 	);
 };
 
-const mapStateToProps = ({ category: { loading } }) => ({ isLoading: loading });
-
-export default connect(mapStateToProps, { getCategories })(Home);
+export default Homepage;
