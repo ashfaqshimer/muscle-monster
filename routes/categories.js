@@ -16,6 +16,6 @@ router
 	.get(advancedResults(Category), getCategories)
 	.post(createCategory);
 
-// router.route('/:id').get(getProduct).put(updateProduct);
+router.route('/:id').get(getCategory).put(updateCategory);
 
 module.exports = router;

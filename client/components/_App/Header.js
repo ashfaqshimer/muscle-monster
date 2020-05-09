@@ -31,11 +31,6 @@ const Header = ({ user }) => {
 				</Link>
 
 				<Menu.Menu position='right'>
-					<Link href='/cart'>
-						<Menu.Item header active={isActive('/cart')}>
-							<Icon name='cart' size='large' /> Cart
-						</Menu.Item>
-					</Link>
 					{isPermitted && (
 						<Link href='/create'>
 							<Menu.Item header active={isActive('/create')}>
@@ -71,6 +66,11 @@ const Header = ({ user }) => {
 							</Link>
 						</>
 					)}
+					<Link href='/cart'>
+						<Menu.Item header active={isActive('/cart')}>
+							<Icon name='cart' size='large' /> Cart
+						</Menu.Item>
+					</Link>
 				</Menu.Menu>
 			</Container>
 		</Menu>

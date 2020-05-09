@@ -22,12 +22,10 @@ const Home = ({ getCategories, isLoading }) => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='list'>{isLoading ? <Loader /> : <Directory />}</div>
-
-			{/* <CategoryList /> */}
 		</div>
 	);
 };
 
-const mapStateToProps = (state) => ({ isLoading: state.category.loading });
+const mapStateToProps = ({ category: { loading } }) => ({ isLoading: loading });
 
 export default connect(mapStateToProps, { getCategories })(Home);
