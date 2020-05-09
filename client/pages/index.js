@@ -1,5 +1,5 @@
-import Directory from '../../components/Directory/Directory';
 import './index.scss';
+import Directory from '../components/Directory/Directory';
 
 const Homepage = () => {
 	return (

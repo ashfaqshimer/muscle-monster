@@ -2,7 +2,7 @@ import App from 'next/app';
 import { Provider } from 'react-redux';
 
 import Layout from '../components/_App/Layout';
-import store from '../store';
+import { store } from '../redux/store';
 
 class MyApp extends App {
 	render() {

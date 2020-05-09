@@ -1,6 +1,7 @@
 const express = require('express');
 const {
 	getCategories,
+	getCategory,
 	createCategory,
 } = require('../controllers/categories.js');
 
@@ -16,6 +17,6 @@ router
 	.get(advancedResults(Category), getCategories)
 	.post(createCategory);
 
-router.route('/:id').get(getCategory).put(updateCategory);
+// router.route('/:id').get(getCategory).put(updateCategory);
 
 module.exports = router;
