@@ -5,7 +5,7 @@ import './MenuItem.scss';
 
 const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
 	return (
-		<Link href={'/shop/[category]'} as={`/shop/${title}`}>
+		<Link href={'/shop/[collection]'} as={`/shop/${title}`}>
 			<div
 				className='MenuItem'
 				// onClick={() => history.push(`${match.url}${linkUrl}`)}
