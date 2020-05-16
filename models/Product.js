@@ -4,25 +4,33 @@ const shortid = require('shortid');
 const ProductSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: [true, 'name is required']
+		required: [true, 'name is required'],
 	},
 	price: {
 		type: Number,
-		required: true
+		required: true,
+	},
+	imageUrl: {
+		type: String,
 	},
 	sku: {
 		type: String,
 		unique: true,
-		default: shortid.generate()
+		default: shortid.generate(),
 	},
 	description: {
 		type: String,
-		required: [true, 'description is required']
+		required: [true, 'description is required'],
 	},
 	quantityAvailable: {
 		type: Number,
-		default: 0
-	}
+		default: 0,
+	},
+	collection: {
+		type: mongoose.Schema.ObjectId,
+		ref: 'Collection',
+		required: true,
+	},
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
