@@ -12,7 +12,7 @@ connectDb();
 
 // Route files
 const productsRoutes = require('./routes/products');
-const categoriesRoutes = require('./routes/categories');
+const collectionsRoutes = require('./routes/collections');
 
 const errorHandler = require('./middleware/errorHandler');
 
@@ -46,7 +46,7 @@ app.get('/api/v1', (req, res) => {
 
 // Mount routers
 app.use('/api/v1/products', productsRoutes);
-app.use('/api/v1/categories', categoriesRoutes);
+app.use('/api/v1/collections', collectionsRoutes);
 
 // Error handler
 app.use(errorHandler);

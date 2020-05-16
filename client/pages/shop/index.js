@@ -1,37 +1,35 @@
-import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import CollectionOverviewContainer from '../../components/CollectionOverview/CollectionOverviewContainer';
+import CollectionPreview from '../../components/CollectionPreview/CollectionPreview';
 import { fetchCollectionsStartAsync } from '../../redux/shop/shopActions';
-import CollectionPageContainer from './[collection]';
+import { selectCollectionsForPreview } from '../../redux/shop/shopSelectors';
 
-const ShopPage = ({
-	match,
-	fetchCollectionsStartAsync,
-	isCollectionFetching,
-}) => {
+import './ShopPage.scss';
+
+const CollectionOverview = ({ collections, fetchCollectionsStartAsync }) => {
 	useEffect(() => {
+		console.log('useEffect');
 		fetchCollectionsStartAsync();
-	}, [fetchCollectionsStartAsync]);
+	}, []);
 
 	return (
-		<div>
-			<Route
-				exact
-				path={`${match.path}`}
-				component={CollectionOverviewContainer}
-			/>
-			<Route
-				path={`${match.path}/:collectionId`}
-				component={CollectionPageContainer}
-			/>
-		</div>
+		// <div className='CollectionOverview'>
+		// 	{collections.map(({ id, ...otherCollectionProps }) => (
+		// 		<CollectionPreview key={id} {...otherCollectionProps} />
+		// 	))}
+		// </div>
+		<div>Shop Page</div>
 	);
 };
+
+const mapStateToProps = createStructuredSelector({
+	// collections: selectCollectionsForPreview,
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync),
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionOverview);
