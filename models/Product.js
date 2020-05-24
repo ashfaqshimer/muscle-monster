@@ -26,7 +26,7 @@ const ProductSchema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
-	collection: {
+	productCollection: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'Collection',
 		required: true,

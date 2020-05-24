@@ -1,11 +1,11 @@
 const express = require('express');
 const {
-	getCategories,
-	getCategory,
+	getCollections,
+	// getCategory,
 	createCategory,
-} = require('../controllers/categories.js');
+} = require('../controllers/collections');
 
-const Category = require('../models/Category');
+const Collection = require('../models/Collection');
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ const advancedResults = require('../middleware/advancedResults');
 
 router
 	.route('/')
-	.get(advancedResults(Category), getCategories)
+	.get(advancedResults(Collection), getCollections)
 	.post(createCategory);
 
 // router.route('/:id').get(getCategory).put(updateCategory);
