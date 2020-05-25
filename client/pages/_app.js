@@ -7,19 +7,27 @@ import App from 'next/app';
 
 import Layout from '../components/_App/Layout';
 
-class MyApp extends App {
-	render() {
-		const { Component } = this.props;
-		return (
-			// <Provider store={store}>
-			// 	<PersistGate persistor={persistor}>
-			<Layout>
-				<Component />
-			</Layout>
-			// 	</PersistGate>
-			// </Provider>
-		);
-	}
+// class MyApp extends App {
+// 	render() {
+// 		const { Component, ...pageProps } = this.props;
+// 		return (
+// 			// <Provider store={store}>
+// 			// 	<PersistGate persistor={persistor}>
+// 			<Layout>
+// 				<Component {...pageProps} />
+// 			</Layout>
+// 			// 	</PersistGate>
+// 			// </Provider>
+// 		);
+// 	}
+// }
+
+function MyApp({ Component, pageProps }) {
+	return (
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
+	);
 }
 
 export default MyApp;
