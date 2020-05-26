@@ -1,7 +1,7 @@
 const express = require('express');
 const {
 	getCollections,
-	// getCategory,
+	getCollection,
 	createCategory,
 } = require('../controllers/collections');
 
@@ -17,6 +17,6 @@ router
 	.get(advancedResults(Collection), getCollections)
 	.post(createCategory);
 
-// router.route('/:id').get(getCategory).put(updateCategory);
+router.route('/:slug').get(getCollection);
 
 module.exports = router;

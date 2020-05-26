@@ -1,9 +1,8 @@
 import './index.scss';
 import Directory from '../components/Directory/Directory';
-import { getCollections } from '../actions/collections';
+import { getCollections } from '../actions/shop';
 
 function HomePage({ sections }) {
-	console.log('HomePage -> props', sections);
 	return (
 		<div className='HomePage'>
 			<Directory sections={sections} />

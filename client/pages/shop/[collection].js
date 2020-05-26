@@ -24,15 +24,18 @@ const CollectionPage = ({ collection }) => {
 	);
 };
 
-const mapStateToProps = (state, ownProps) => ({
-	collection: selectCollection(ownProps.match.params.collectionId)(state),
-	isLoading: selectIsCollectionFetching,
-});
+export async function getStaticProps() {
+	const data = await 
+}
+// const mapStateToProps = (state, ownProps) => ({
+// 	collection: selectCollection(ownProps.match.params.collectionId)(state),
+// 	isLoading: selectIsCollectionFetching,
+// });
 
-// Container With Spinner
-const CollectionPageContainer = compose(
-	connect(mapStateToProps),
-	WithSpinner
-)(CollectionPage);
+// // Container With Spinner
+// const CollectionPageContainer = compose(
+// 	connect(mapStateToProps),
+// 	WithSpinner
+// )(CollectionPage);
 
-export default CollectionPageContainer;
+// export default CollectionPageContainer;

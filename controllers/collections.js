@@ -11,19 +11,21 @@ exports.getCollections = asyncHandler(async (req, res, next) => {
 	res.status(200).json(res.advancedResults);
 });
 
-// @desc    Get a single category
-// @route   GET /api/v1/Collections/:id
+// @desc    Get a single collection
+// @route   GET /api/v1/Collections/:slug
 // @access  Public
 exports.getCollection = asyncHandler(async (req, res, next) => {
-	const category = await Category.findById(req.params.id);
+	const collection = await Collection.findOne({
+		slug: req.params.slug,
+	}).populate('products');
 
-	if (!category) {
-		return next(new ErrorResponse(`Category ${req.params.id} not found`));
+	if (!collection) {
+		return next(new ErrorResponse(`Collection ${req.params.slug} not found`));
 	}
 
 	res.status(200).json({
 		success: true,
-		data: category,
+		data: collection,
 	});
 });
 

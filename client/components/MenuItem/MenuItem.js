@@ -3,13 +3,10 @@ import Link from 'next/link';
 
 import './MenuItem.scss';
 
-const MenuItem = ({ name, imageUrl, size, history, linkUrl, match }) => {
+const MenuItem = ({ name, slug, imageUrl }) => {
 	return (
-		<Link href={'/shop/[collection]'} as={`/shop/${name}`}>
-			<div
-				className='MenuItem'
-				// onClick={() => history.push(`${match.url}${linkUrl}`)}
-			>
+		<Link href={'/shop/[collection]'} as={`/shop/${slug}`}>
+			<div className='MenuItem'>
 				<div
 					className='background-image'
 					style={{ background: `url(${imageUrl})` }}
