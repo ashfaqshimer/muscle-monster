@@ -16,10 +16,10 @@ const Layout = ({ children, user }) => {
 					rel='stylesheet'
 					href='//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css'
 				/>
-				<title>Royal Merchandise | Simply the Best!</title>
+				<title>Muscle Monster | Simply the Best!</title>
 			</Head>
 			<Header />
-			<Container text>{children}</Container>
+			<Container>{children}</Container>
 		</>
 	);
 };
