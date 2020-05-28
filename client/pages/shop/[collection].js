@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { getCollectionBySlug, getCollections } from '../../actions/shop';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -11,12 +13,13 @@ import CollectionItem from '../../components/CollectionItem/CollectionItem';
 import WithSpinner from '../../components/WithSpinner/WithSpinner';
 
 const CollectionPage = ({ collection }) => {
-	const { title, items } = collection;
+	console.log(collection);
+	const { name, products } = collection;
 	return (
 		<div className='CollectionPage'>
-			<h2>{title}</h2>
+			<h2>{name}</h2>
 			<div className='items'>
-				{items.map((item) => (
+				{products.map((item) => (
 					<CollectionItem key={item.id} item={item} />
 				))}
 			</div>
@@ -24,18 +27,30 @@ const CollectionPage = ({ collection }) => {
 	);
 };
 
-export async function getStaticProps() {
-	const data = await 
+export async function getStaticProps({ params }) {
+	const response = await getCollectionBySlug(params.collection);
+	const collection = response.data;
+
+	// Pass post data to the page via props
+	return { props: { collection } };
 }
-// const mapStateToProps = (state, ownProps) => ({
-// 	collection: selectCollection(ownProps.match.params.collectionId)(state),
-// 	isLoading: selectIsCollectionFetching,
-// });
 
-// // Container With Spinner
-// const CollectionPageContainer = compose(
-// 	connect(mapStateToProps),
-// 	WithSpinner
-// )(CollectionPage);
+export async function getStaticPaths() {
+	// Call an external API endpoint to get posts
+	const collections = await getCollections();
+	const sections = collections.data;
 
-// export default CollectionPageContainer;
+	// Get the paths we want to pre-render based on posts
+	const paths = sections.map(({ slug }) => ({
+		params: { collection: slug },
+	}));
+
+	// We'll pre-render only these paths at build time.
+	// { fallback: false } means other routes should 404.
+	return { paths, fallback: false };
+}
+
+// Container With Spinner
+const CollectionPageContainer = WithSpinner(CollectionPage);
+
+export default CollectionPageContainer;
