@@ -21,7 +21,7 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 
 	res.status(200).json({
 		success: true,
-		data: product
+		data: product,
 	});
 });
 
@@ -33,7 +33,7 @@ exports.createProduct = asyncHandler(async (req, res, next) => {
 
 	res.status(201).json({
 		success: true,
-		data: product
+		data: product,
 	});
 });
 
@@ -48,20 +48,17 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 
 	if (!product) {
 		return next(
-			new ErrorResponse(
-				`Product not found with id of ${req.params.id}`,
-				404
-			)
+			new ErrorResponse(`Product not found with id of ${req.params.id}`, 404)
 		);
 	}
 
 	product = await Product.findByIdAndUpdate(req.params.id, reqBody, {
 		new: true,
-		runValidators: true
+		runValidators: true,
 	});
 
 	res.status(201).json({
 		success: true,
-		data: product
+		data: product,
 	});
 });

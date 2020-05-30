@@ -15,9 +15,17 @@ exports.getCollections = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/Collections/:slug
 // @access  Public
 exports.getCollection = asyncHandler(async (req, res, next) => {
+	// Pagination
+	const page = parseInt(req.query.page, 10) || 1;
+	const limit = parseInt(req.query.limit, 10) || 25;
+	const startIndex = (page - 1) * limit;
+	const endIndex = page * limit;
+
 	const collection = await Collection.findOne({
 		slug: req.params.slug,
-	}).populate('products');
+	}).populate({ path: 'products', options: { skip: startIndex, limit } });
+
+	const totalProducts = collection.products.length;
 
 	if (!collection) {
 		return next(new ErrorResponse(`Collection ${req.params.slug} not found`));
