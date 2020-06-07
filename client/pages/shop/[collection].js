@@ -5,8 +5,8 @@ import { getCollectionBySlug, getCollections } from '../../actions/shop';
 
 import './[collection].scss';
 
-import WithSpinner from '../../components/WithSpinner/WithSpinner';
 import ProductList from '../../components/ProductList/ProductList';
+import Loader from '../../components/Loader/Loader';
 
 const CollectionPage = ({
 	collection,
@@ -15,16 +15,16 @@ const CollectionPage = ({
 	productsLimit,
 }) => {
 	const { name, products } = collection;
-
 	const [limit, setLimit] = useState(productsLimit);
 	const [page, setPage] = useState(1);
-	const [size, setSize] = useState(totalProducts);
 	const [loadedProducts, setLoadedProducts] = useState(products);
 	const [isNextPage, setIsNextPage] = useState(hasNextPage);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleLoad = async () => {
 		try {
 			const newPage = page + 1;
+			setIsLoading(true);
 			const response = await getCollectionBySlug(collection.slug, {
 				page: newPage,
 				limit,
@@ -32,15 +32,18 @@ const CollectionPage = ({
 			if (!response.pagination.next) {
 				setIsNextPage(false);
 			}
-			console.log(response);
 			setLoadedProducts([...loadedProducts, ...response.data.products]);
 			setPage(newPage);
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : (
 		<div className='ui grid'>
 			<div className='one column row'>
 				<h2>{name}</h2>
@@ -50,7 +53,9 @@ const CollectionPage = ({
 			</div>
 			{isNextPage ? (
 				<div className='one column row'>
-					<Button onClick={handleLoad}>Load More</Button>
+					<Button disabled={isLoading} onClick={handleLoad}>
+						Load More
+					</Button>
 				</div>
 			) : null}
 		</div>
@@ -88,7 +93,4 @@ export async function getStaticPaths() {
 	return { paths, fallback: false };
 }
 
-// Container With Spinner
-const CollectionPageContainer = WithSpinner(CollectionPage);
-
-export default CollectionPageContainer;
+export default CollectionPage;
