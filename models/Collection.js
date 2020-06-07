@@ -43,6 +43,14 @@ CollectionSchema.virtual('products', {
 	justOne: false,
 });
 
+// Count of products
+CollectionSchema.virtual('productsCount', {
+	ref: 'Product',
+	localField: '_id',
+	foreignField: 'productCollection',
+	count: true,
+});
+
 // Create bootcamp slug from name
 CollectionSchema.pre('save', function (next) {
 	this.slug = slugify(this.name, { lower: true });

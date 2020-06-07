@@ -1,38 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from 'semantic-ui-react';
 
 import { getCollectionBySlug, getCollections } from '../../actions/shop';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 import './[collection].scss';
-import {
-	selectCollection,
-	selectIsCollectionFetching,
-} from '../../redux/shop/shopSelectors';
-import CollectionItem from '../../components/CollectionItem/CollectionItem';
-import WithSpinner from '../../components/WithSpinner/WithSpinner';
 
-const CollectionPage = ({ collection }) => {
-	console.log(collection);
+import WithSpinner from '../../components/WithSpinner/WithSpinner';
+import ProductList from '../../components/ProductList/ProductList';
+
+const CollectionPage = ({
+	collection,
+	totalProducts,
+	hasNextPage,
+	productsLimit,
+}) => {
 	const { name, products } = collection;
+
+	const [limit, setLimit] = useState(productsLimit);
+	const [page, setPage] = useState(1);
+	const [size, setSize] = useState(totalProducts);
+	const [loadedProducts, setLoadedProducts] = useState(products);
+	const [isNextPage, setIsNextPage] = useState(hasNextPage);
+
+	const handleLoad = async () => {
+		try {
+			const newPage = page + 1;
+			const response = await getCollectionBySlug(collection.slug, {
+				page: newPage,
+				limit,
+			});
+			if (!response.pagination.next) {
+				setIsNextPage(false);
+			}
+			console.log(response);
+			setLoadedProducts([...loadedProducts, ...response.data.products]);
+			setPage(newPage);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
-		<div className='CollectionPage'>
-			<h2>{name}</h2>
-			<div className='items'>
-				{products.map((product) => (
-					<CollectionItem key={product._id} item={product} />
-				))}
+		<div className='ui grid'>
+			<div className='one column row'>
+				<h2>{name}</h2>
 			</div>
+			<div className='one column row'>
+				<ProductList products={loadedProducts} />
+			</div>
+			{isNextPage ? (
+				<div className='one column row'>
+					<Button onClick={handleLoad}>Load More</Button>
+				</div>
+			) : null}
 		</div>
 	);
 };
 
 export async function getStaticProps({ params }) {
-	const response = await getCollectionBySlug(params.collection);
-	const collection = response.data;
+	const page = 1;
+	const limit = 2;
 
-	// Pass post data to the page via props
-	return { props: { collection } };
+	const response = await getCollectionBySlug(params.collection, {
+		page,
+		limit,
+	});
+	const collection = response.data;
+	const totalProducts = response.total;
+	const hasNextPage = response.pagination.hasOwnProperty('next');
+
+	return {
+		props: { collection, totalProducts, hasNextPage, productsLimit: limit },
+	};
 }
 
 export async function getStaticPaths() {
@@ -45,7 +84,6 @@ export async function getStaticPaths() {
 		params: { collection: slug },
 	}));
 
-	// We'll pre-render only these paths at build time.
 	// { fallback: false } means other routes should 404.
 	return { paths, fallback: false };
 }

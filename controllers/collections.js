@@ -23,17 +23,35 @@ exports.getCollection = asyncHandler(async (req, res, next) => {
 
 	const collection = await Collection.findOne({
 		slug: req.params.slug,
-	}).populate({ path: 'products', options: { skip: startIndex, limit } });
-
-	const totalProducts = collection.products.length;
+	})
+		.populate({ path: 'products', options: { skip: startIndex, limit } })
+		.populate('productsCount');
 
 	if (!collection) {
 		return next(new ErrorResponse(`Collection ${req.params.slug} not found`));
 	}
 
+	const totalProducts = collection.productsCount;
+
+	// Pagination result
+	const pagination = {};
+
+	if (endIndex < totalProducts) {
+		pagination.next = { page: page + 1, limit };
+	}
+
+	if (startIndex > 0) {
+		pagination.prev = {
+			page: page - 1,
+			limit,
+		};
+	}
+
 	res.status(200).json({
 		success: true,
 		data: collection,
+		total: totalProducts,
+		pagination,
 	});
 });
 
