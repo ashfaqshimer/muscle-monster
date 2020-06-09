@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
 
-import { getCollectionBySlug, getCollections } from '../../actions/shop';
+import { getCollectionBySlug, getCollections } from '../../../actions/shop';
 
 import './[collection].scss';
 
-import ProductList from '../../components/ProductList/ProductList';
-import Loader from '../../components/Loader/Loader';
+import ProductList from '../../../components/ProductList/ProductList';
+import Loader from '../../../components/Loader/Loader';
 
 const CollectionPage = ({
 	collection,
