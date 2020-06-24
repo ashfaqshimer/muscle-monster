@@ -14,3 +14,8 @@ export const getCollectionBySlug = async (slug, { page = 1, limit = 20 }) => {
 	);
 	return response.data;
 };
+
+export const getProductBySlug = async (slug) => {
+	const response = await axios.get(`${BASE_URL}/api/v1/products/${slug}`);
+	return response.data;
+};

@@ -1,11 +1,12 @@
-import ProductSummary from '../../../components/Product/ProductSummary';
-import ProductAttributes from '../components/Product/ProductAttributes';
+// import ProductSummary from '../../../components/Product/ProductSummary';
+// import ProductAttributes from '../components/Product/ProductAttributes';
 
 const ProductPage = ({ product, user }) => {
 	return (
 		<div>
-			<ProductSummary user={user} {...product} />
-			<ProductAttributes user={user} {...product} />
+			{/* <ProductSummary user={user} {...product} />
+			<ProductAttributes user={user} {...product} /> */}
+			Product page
 		</div>
 	);
 };
@@ -27,6 +28,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
 	// Map all possible paths from /products routes
+	// Make call to fetch products
 }
 
 export default ProductPage;

@@ -44,15 +44,15 @@ const CollectionPage = ({
 	return isLoading ? (
 		<Loader />
 	) : (
-		<div className='ui grid'>
-			<div className='one column row'>
+		<div className='CollectionPage'>
+			<div className='title'>
 				<h2>{name}</h2>
 			</div>
-			<div className='one column row'>
+			<div>
 				<ProductList products={loadedProducts} />
 			</div>
 			{isNextPage ? (
-				<div className='one column row'>
+				<div className='load-more'>
 					<Button disabled={isLoading} onClick={handleLoad}>
 						Load More
 					</Button>

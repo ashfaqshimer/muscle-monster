@@ -7,14 +7,9 @@
 		margin: 0 auto 30px;
 	}
 
-	.items {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-gap: 10px;
-
-		& .collection-item {
-			margin-bottom: 30px;
-		}
+	.load-more {
+		margin: 1rem auto;
+		justify-content: center;
 	}
 
 	@media screen and (max-width: 768px) {
