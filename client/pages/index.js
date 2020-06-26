@@ -1,4 +1,4 @@
-import './index.scss';
+import './index.module.scss';
 import Directory from '../components/Directory/Directory';
 import { getCollections } from '../actions/shop';
 

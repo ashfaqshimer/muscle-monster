@@ -1,19 +1,19 @@
 import { withRouter } from 'next/router';
 import Link from 'next/link';
 
-import './MenuItem.scss';
+import styles from './MenuItem.module.scss';
 
 const MenuItem = ({ name, slug, imageUrl }) => {
 	return (
 		<Link href={'/shop/[collection]'} as={`/shop/${slug}`}>
-			<div className='MenuItem'>
+			<div className={styles.MenuItem}>
 				<div
-					className='background-image'
+					className={styles['background-image']}
 					style={{ background: `url(${imageUrl})` }}
 				/>
-				<div className='content'>
-					<h1 className='title'>{name.toUpperCase()}</h1>
-					<span className='subtitle'>Shop Now</span>
+				<div className={styles.content}>
+					<h1 className={styles.title}>{name.toUpperCase()}</h1>
+					<span className={styles.subtitle}>Shop Now</span>
 				</div>
 			</div>
 		</Link>

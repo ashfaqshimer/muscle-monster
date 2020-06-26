@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 
 import { getCollectionBySlug, getCollections } from '../../../actions/shop';
 
-import './[collection].scss';
+import styles from './collection.module.scss';
 
 import ProductList from '../../../components/ProductList/ProductList';
 import Loader from '../../../components/Loader/Loader';
@@ -44,15 +44,15 @@ const CollectionPage = ({
 	return isLoading ? (
 		<Loader />
 	) : (
-		<div className='CollectionPage'>
-			<div className='title'>
+		<div className={styles['CollectionPage']}>
+			<div className={styles['title']}>
 				<h2>{name}</h2>
 			</div>
 			<div>
 				<ProductList products={loadedProducts} />
 			</div>
 			{isNextPage ? (
-				<div className='load-more'>
+				<div className={styles['load-more']}>
 					<Button disabled={isLoading} onClick={handleLoad}>
 						Load More
 					</Button>

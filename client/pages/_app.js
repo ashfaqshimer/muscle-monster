@@ -1,32 +1,58 @@
-import App from 'next/app';
+import { PageTransition } from 'next-page-transitions';
 
-// Redux related
-// import { Provider } from 'react-redux';
-// import { PersistGate } from 'redux-persist/integration/react';
-// import { store, persistor } from '../redux/store';
+const TIMEOUT = 400;
 
+import Loader from '../components/Loader/Loader';
 import Layout from '../components/_App/Layout';
-
-// class MyApp extends App {
-// 	render() {
-// 		const { Component, ...pageProps } = this.props;
-// 		return (
-// 			// <Provider store={store}>
-// 			// 	<PersistGate persistor={persistor}>
-// 			<Layout>
-// 				<Component {...pageProps} />
-// 			</Layout>
-// 			// 	</PersistGate>
-// 			// </Provider>
-// 		);
-// 	}
-// }
+import '../styles.scss';
 
 function MyApp({ Component, pageProps }) {
 	return (
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
+		<>
+			<Layout>
+				<PageTransition
+					timeout={TIMEOUT}
+					classNames='page-transition'
+					loadingComponent={<Loader />}
+					loadingDelay={500}
+					loadingTimeout={{
+						enter: TIMEOUT,
+						exit: 0,
+					}}
+					loadingClassNames='loading-indicator'
+				>
+					<Component {...pageProps} />
+				</PageTransition>
+			</Layout>
+
+			<style jsx global>{`
+				.page-transition-enter {
+					opacity: 0;
+					transform: translate3d(0, 20px, 0);
+				}
+				.page-transition-enter-active {
+					opacity: 1;
+					transform: translate3d(0, 0, 0);
+					transition: opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms;
+				}
+				.page-transition-exit {
+					opacity: 1;
+				}
+				.page-transition-exit-active {
+					opacity: 0;
+					transition: opacity ${TIMEOUT}ms;
+				}
+				.loading-indicator-appear,
+				.loading-indicator-enter {
+					opacity: 0;
+				}
+				.loading-indicator-appear-active,
+				.loading-indicator-enter-active {
+					opacity: 1;
+					transition: opacity ${TIMEOUT}ms;
+				}
+			`}</style>
+		</>
 	);
 }
 

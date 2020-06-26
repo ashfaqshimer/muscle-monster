@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './Loader.scss';
+import styles from './Loader.module.scss';
 
 export default function Loader() {
 	return (
-		<div className='loader-container'>
-			<div className='lds-hourglass'></div>
+		<div className={styles['loader-container']}>
+			<div className={styles['lds-hourglass']}></div>
 		</div>
 	);
 }
