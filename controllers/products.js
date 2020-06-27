@@ -25,22 +25,6 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 	});
 });
 
-// @desc    Get a single product
-// @route   GET /api/v1/products/:id
-// @access  Public
-exports.getProduct = asyncHandler(async (req, res, next) => {
-	const product = await Product.findById(req.params.id);
-
-	if (!product) {
-		return next(new ErrorResponse(`Product ${req.params.id} not found`));
-	}
-
-	res.status(200).json({
-		success: true,
-		data: product,
-	});
-});
-
 // @desc    Create product
 // @route   POST /api/v1/products/
 // @access  Public

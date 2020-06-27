@@ -1,10 +1,19 @@
 import { PageTransition } from 'next-page-transitions';
-
-const TIMEOUT = 400;
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'; //styles of nprogress
 
 import Loader from '../components/Loader/Loader';
 import Layout from '../components/_App/Layout';
 import '../styles.scss';
+
+// Loading indicator upon page load
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
+
+// Set a timer for page transitions
+const TIMEOUT = 400;
 
 function MyApp({ Component, pageProps }) {
 	return (

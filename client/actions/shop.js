@@ -15,7 +15,12 @@ export const getCollectionBySlug = async (slug, { page = 1, limit = 20 }) => {
 	return response.data;
 };
 
-export const getProductBySlug = async (slug) => {
-	const response = await axios.get(`${BASE_URL}/api/v1/products/${slug}`);
+export const getProducts = async () => {
+	const response = await axios.get(`${BASE_URL}/api/v1/products`);
+	return response.data;
+};
+
+export const getProductById = async (id) => {
+	const response = await axios.get(`${BASE_URL}/api/v1/products/${id}`);
 	return response.data;
 };

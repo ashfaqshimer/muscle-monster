@@ -1,7 +1,10 @@
 // import ProductSummary from '../../../components/Product/ProductSummary';
 // import ProductAttributes from '../components/Product/ProductAttributes';
 
+import { getProducts, getProductById } from '../../../actions/shop';
+
 const ProductPage = ({ product, user }) => {
+	console.log(product);
 	return (
 		<div>
 			{/* <ProductSummary user={user} {...product} />
@@ -24,11 +27,23 @@ const ProductPage = ({ product, user }) => {
 
 export async function getStaticProps({ params }) {
 	// Write an action to fetch the product by slug
+	const response = await getProductById(params.id);
+	return {
+		props: { product: response.data },
+	};
 }
 
 export async function getStaticPaths() {
-	// Map all possible paths from /products routes
 	// Make call to fetch products
+	const { data: products } = await getProducts();
+
+	// Get the paths we want to pre-render based on posts
+	const paths = products.map(({ _id }) => ({
+		params: { id: _id },
+	}));
+
+	// { fallback: false } means other routes should 404.
+	return { paths, fallback: false };
 }
 
 export default ProductPage;
